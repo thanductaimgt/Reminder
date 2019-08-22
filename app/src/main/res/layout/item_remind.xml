@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/shape_round_top_corners"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:paddingTop="8dp"
+android:paddingBottom="8dp">
+<TextView
+        android:id="@+id/hourTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+          android:textSize="@dimen/sizeTextHour"
+          app:layout_constraintTop_toTopOf="parent"
+          android:text="8:30"
+          app:layout_constraintStart_toStartOf="parent"
+/>
+    <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:id="@+id/shiftTextView"
+            android:textSize="@dimen/sizeTextShift"
+              android:text="AM"
+              app:layout_constraintBottom_toBottomOf="@id/hourTextView"
+              app:layout_constraintStart_toEndOf="@id/hourTextView"
+    />
+    <Switch
+            app:layout_constraintBottom_toTopOf="@id/deleteImgView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/hourTextView"
+            android:id="@+id/itemSwitch"
+    />
+    <ImageView
+            android:padding="8dp"
+            app:layout_constraintDimensionRatio="h,1:1"
+            android:layout_width="48dp"
+            android:src="@drawable/delete"
+            android:layout_height="0dp"
+    android:id="@+id/deleteImgView"
+               app:layout_constraintTop_toBottomOf="@id/itemSwitch"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="@id/itemSwitch"
+               app:layout_constraintStart_toStartOf="@id/itemSwitch"
+    />
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+    android:id="@+id/dateTextView"
+              android:textSize="@dimen/sizeTextDate"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/hourTextView"
+              android:text="20-10-2019"
+    />
+    <TextView
+            android:text="sinh hoat cong dan"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/deleteImgView"
+            app:layout_constraintStart_toEndOf="@id/shiftTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+    android:id="@+id/descTextView"
+              app:layout_constraintTop_toTopOf="@id/hourTextView"
+              app:layout_constraintBottom_toBottomOf="@id/dateTextView"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>

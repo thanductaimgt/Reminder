@@ -10,4 +10,5 @@
     <color name="LightErrorText">#b00020</color>
     <color name="LightCancelButtonBackground">#e61515</color>
     <color name="LightText">#212121</color>
+    <color name="LightPrimaryTransparent">#AAeb99f0</color>
 </resources>
