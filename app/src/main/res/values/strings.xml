@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Reminder</string>
+    <string name="cancel">Hủy</string>
+    <string name="create">Tạo</string>
+    <string name="description">Mô tả</string>
+    <string name="default_time">9:00 AM</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

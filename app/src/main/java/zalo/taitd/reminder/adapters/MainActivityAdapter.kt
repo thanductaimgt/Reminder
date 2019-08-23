@@ -9,7 +9,6 @@ import zalo.taitd.reminder.R
 import zalo.taitd.reminder.models.Remind
 import zalo.taitd.reminder.utils.BindableViewHolder
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.RemindViewHolder>(){
@@ -31,9 +30,8 @@ class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.RemindViewHol
         override fun bind(position: Int) {
             val remind = reminds[position]
             itemView.apply {
-
-                hourTextView.text = SimpleDateFormat.getTimeInstance().format(remind.time)
-
+                timeTextView.text = SimpleDateFormat("h:mm").format(remind.time)
+                dateTextView.text = SimpleDateFormat.getDateInstance().format(remind.time)
             }
         }
 
