@@ -1,10 +1,11 @@
 package zalo.taitd.reminder.activities
 
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.Constraints
+import androidx.work.OneTimeWorkRequestBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import zalo.taitd.reminder.R
 import zalo.taitd.reminder.adapters.MainActivityAdapter
@@ -13,6 +14,7 @@ import zalo.taitd.reminder.models.Remind
 import java.util.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+    lateinit var reminds:List<Remind>
     private lateinit var adapter: MainActivityAdapter
     private lateinit var createRemindDialog: CreateRemindDialog
 
@@ -42,6 +44,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun createRemind(){
+// Create a Constraints object that defines when the task should run
+        val constraints = Constraints.Builder()
+            .
+            .setRequiresCharging(true)
+            .build()
 
+// ...then create a OneTimeWorkRequest that uses those constraints
+        val compressionWork = OneTimeWorkRequestBuilder<CompressWorker>()
+            .setConstraints(constraints)
+            .build()
     }
 }

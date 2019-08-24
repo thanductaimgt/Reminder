@@ -13,17 +13,21 @@ import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.dialog_create_remind.view.*
 import zalo.taitd.reminder.R
 import zalo.taitd.reminder.activities.MainActivity
+import zalo.taitd.reminder.models.Remind
+import zalo.taitd.reminder.utils.Constants
 import zalo.taitd.reminder.utils.TAG
+import zalo.taitd.reminder.utils.Utils
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), View.OnClickListener {
-    private val timeFormater = SimpleDateFormat.getTimeInstance()
-    private val dateFormater = SimpleDateFormat.getDateInstance()
+    private lateinit var calendar: Calendar
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_create_remind, container, false)
         initView(view)
+        calendar = Calendar.getInstance()
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), Constants.DEFAULT_HOUR, 0)
         return view
     }
 
@@ -57,15 +61,18 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
     }
 
     private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
         DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+            calendar.set(year, monthOfYear, dayOfMonth)
             view!!.dateTextView.text = String.format("$dayOfMonth/$monthOfYear/$year")
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
 
     private fun showTimePickerDialog() {
-        val calendar = Calendar.getInstance()
         TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { timePicker, hourOfDay, minute ->
+            calendar.apply {
+                set(Calendar.HOUR_OF_DAY, hourOfDay)
+                set(Calendar.MINUTE, minute)
+            }
             view!!.timeTextView.text = String.format("$hourOfDay:$minute")
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
     }
@@ -76,7 +83,12 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
     }
 
     private fun createRemindAndDismiss() {
-        (activity as MainActivity).createRemind()
+        val mainActivity = (activity as MainActivity)
+        mainActivity.createRemind(
+            Remind(
+                id = Utils.generateNewId(mainActivity.reminds),
+                time = )
+        )
         clearFocusAndDismiss()
     }
 }
