@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:background="@drawable/shape_round_corners"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -9,28 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="4dp">
     <TextView
             android:id="@+id/timeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sizeTextTime"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="8:30"
-            app:layout_constraintStart_toStartOf="parent"
+            tools:text="08:30"
+            app:layout_constraintStart_toStartOf="@id/dateTextView"
+            app:layout_constraintEnd_toEndOf="@id/dateTextView"
     />
-    <TextView
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/shiftTextView"
-            android:textSize="@dimen/sizeTextShift"
-            android:text="AM"
-            app:layout_constraintBottom_toBottomOf="@id/timeTextView"
-            app:layout_constraintStart_toEndOf="@id/timeTextView"
-    />
+
     <Switch
             app:layout_constraintBottom_toTopOf="@id/deleteImgView"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +42,6 @@
             app:layout_constraintTop_toBottomOf="@id/itemSwitch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/itemSwitch"
-            app:layout_constraintStart_toStartOf="@id/itemSwitch"
     />
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -58,15 +49,15 @@
               android:textSize="@dimen/sizeTextDate"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/timeTextView"
-              android:text="20-10-2019"
+            tools:text="20/10/2019"
     />
     <TextView
-            android:text="sinh hoat cong dan"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            tools:text="sinh hoat cong dan"
             android:textAlignment="center"
             app:layout_constraintEnd_toStartOf="@id/deleteImgView"
-            app:layout_constraintStart_toEndOf="@id/shiftTextView"
+            app:layout_constraintStart_toEndOf="@id/dateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/descTextView"

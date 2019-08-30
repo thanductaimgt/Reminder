@@ -9,10 +9,7 @@
     <dimen name="sizeTextSmall">10sp</dimen>
     <dimen name="sizeTaskActionButton">32dp</dimen>
     <dimen name="sizeButtonPaddingVertical">12dp</dimen>
-
-    <dimen name="sizeTextTime">40sp</dimen>
-    <dimen name="sizeTextShift">18sp</dimen>
-    <dimen name="sizeTextDate">16sp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="sizeTextTime">30sp</dimen>
+    <dimen name="sizeTextDate">20sp</dimen>
 
 </resources>
