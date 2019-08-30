@@ -1,4 +1,4 @@
-package zalo.taitd.reminder.utils
+package zalo.taitd.reminder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
