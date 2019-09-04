@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@drawable/shape_round_corners"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginBottom="4dp">
-    <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sizeTextTime"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="08:30"
-            app:layout_constraintStart_toStartOf="@id/dateTextView"
-            app:layout_constraintEnd_toEndOf="@id/dateTextView"
-    />
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/shape_round_corners"
+        android:orientation="vertical">
 
-    <Switch
-            app:layout_constraintBottom_toTopOf="@id/deleteImgView"
-            app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+            android:id="@+id/dateTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/timeTextView"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="@dimen/sizeTextDateTime"
+            app:layout_constraintBottom_toBottomOf="@id/itemSwitch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="08:30 - 01/01/2019" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/itemSwitch"
-    />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/deleteImgView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
     <ImageView
-            android:padding="8dp"
-            app:layout_constraintDimensionRatio="h,1:1"
-            android:layout_width="48dp"
-            android:src="@drawable/delete"
-            android:layout_height="0dp"
             android:id="@+id/deleteImgView"
-            app:layout_constraintTop_toBottomOf="@id/itemSwitch"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/delete"
+            android:padding="8dp"
+            android:src="@drawable/delete"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintEnd_toEndOf="@id/itemSwitch"
-    />
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/dateTextView"
-              android:textSize="@dimen/sizeTextDate"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/timeTextView"
-            tools:text="20/10/2019"
-    />
+            app:layout_constraintTop_toBottomOf="@id/itemSwitch"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
     <TextView
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            tools:text="sinh hoat cong dan"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@id/deleteImgView"
-            app:layout_constraintStart_toEndOf="@id/dateTextView"
+            android:textSize="@dimen/sizeTextSmall"
+            android:id="@+id/remainTimeTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toStartOf="@id/deleteImgView"
+            app:layout_constraintStart_toStartOf="@id/dateTimeTextView"
+            app:layout_constraintTop_toBottomOf="@id/dateTimeTextView"
+            tools:text="(Con 1 ngay 3 gio)" />
+
+    <TextView
             android:id="@+id/descTextView"
-            app:layout_constraintTop_toTopOf="@id/timeTextView"
-            app:layout_constraintBottom_toBottomOf="@id/dateTextView"
-    />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toStartOf="@id/deleteImgView"
+            app:layout_constraintStart_toStartOf="@id/dateTimeTextView"
+            app:layout_constraintTop_toBottomOf="@id/remainTimeTextView"
+            tools:text="sinh hoat cong dan" />
 </androidx.constraintlayout.widget.ConstraintLayout>

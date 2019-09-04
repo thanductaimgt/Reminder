@@ -32,6 +32,7 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH),
             Constants.DEFAULT_HOUR,
+            0,
             0
         )
 
@@ -58,15 +59,9 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
             timeTextView.setOnClickListener(this@CreateRemindDialog)
             dateTextView.setOnClickListener(this@CreateRemindDialog)
 
-            timeTextView.text =
-                String.format("${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}")
+            timeTextView.text = Utils.getTimeFormat(calendar.time)
 
-            dateTextView.text =
-                String.format(
-                    "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH)+1}/${calendar.get(
-                        Calendar.YEAR
-                    )}"
-                )
+            dateTextView.text = Utils.getDateFormat(calendar.time)
         }
     }
 
@@ -86,29 +81,29 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
     private fun showTimePickerDialog() {
         TimePickerDialog(
             context,
-            TimePickerDialog.OnTimeSetListener { timePicker, hourOfDay, minute ->
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 calendar.apply {
                     set(Calendar.HOUR_OF_DAY, hourOfDay)
                     set(Calendar.MINUTE, minute)
                 }
-                view!!.timeTextView.text = String.format("$hourOfDay:$minute")
+                view!!.timeTextView.text = Utils.getTimeFormat(calendar.time)
             },
             calendar.get(Calendar.HOUR_OF_DAY),
             calendar.get(Calendar.MINUTE),
-            false
+            true
         ).show()
     }
 
     private fun showDatePickerDialog() {
         DatePickerDialog(
             context!!,
-            DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 calendar.apply {
                     set(Calendar.DAY_OF_MONTH, dayOfMonth)
                     set(Calendar.MONTH, monthOfYear)
                     set(Calendar.YEAR, year)
                 }
-                view!!.dateTextView.text = String.format("$dayOfMonth/$monthOfYear/$year")
+                view!!.dateTextView.text = Utils.getDateFormat(calendar.time)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),

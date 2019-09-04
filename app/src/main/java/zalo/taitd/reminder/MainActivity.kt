@@ -1,18 +1,13 @@
 package zalo.taitd.reminder
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.Completable
-import io.reactivex.CompletableObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
             .create(MainActivityViewModel::class.java)
         viewModel.liveReminds.observe(this, Observer { reminds ->
-            adapter.reminds = reminds.values.toList().map { it.copy() }
+            adapter.reminds = reminds.values.sortedByDescending { it.id }.map { it.copy() }
             adapter.notifyDataSetChanged()
         })
     }
@@ -51,25 +46,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.deleteImgView -> {
                 val position = recyclerView.getChildLayoutPosition(view.parent as View)
                 val remind = adapter.reminds[position]
-                deleteRemind(remind)
+                deleteRemind(remind.id)
             }
         }
     }
 
-    fun deleteRemind(remind: Remind) {
-//        Utils.createAlarm(this, remind)
-        viewModel.deleteRemind(remind.id)
+    private fun deleteRemind(remindId: Int) {
+//        disable alarms
+        viewModel.deleteRemind(this, remindId)
         Toast.makeText(this, getString(R.string.delete_remind_success), Toast.LENGTH_SHORT).show()
     }
 
     fun createRemind(remind: Remind) {
-        Utils.createAlarm(this, remind)
-        viewModel.insertRemind(remind)
+        viewModel.createRemind(this, remind)
         Toast.makeText(this, getString(R.string.create_remind_success), Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        viewModel.disposeAllDisposables()
-        super.onDestroy()
+    fun updateRemindState(remindId: Int, isEnabled: Boolean) {
+        viewModel.updateRemindState(this, remindId, isEnabled)
+        val toastMessageResId =
+            if (isEnabled) {
+                R.string.enabled_remind
+            } else {
+                R.string.disabled_remind
+            }
+        Toast.makeText(this, getString(toastMessageResId), Toast.LENGTH_SHORT).show()
     }
 }

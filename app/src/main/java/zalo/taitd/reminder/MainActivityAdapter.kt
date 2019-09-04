@@ -5,8 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_remind.view.*
-import java.text.SimpleDateFormat
-import kotlin.collections.ArrayList
 
 class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.RemindViewHolder>(){
     var reminds:List<Remind> = ArrayList()
@@ -27,8 +25,15 @@ class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.RemindViewHol
         override fun bind(position: Int) {
             val remind = reminds[position]
             itemView.apply {
-                timeTextView.text = SimpleDateFormat("hh:mm").format(remind.time)
-                dateTextView.text = SimpleDateFormat("dd/MM/yyyy").format(remind.time)
+                dateTimeTextView.text = String.format("%s - %s", Utils.getTimeFormat(remind.time), Utils.getDateFormat(remind.time))
+                remainTimeTextView.text = Utils.getDateTimeDiffFormat(context!!, remind.time)
+                descTextView.text = remind.description
+                itemSwitch.isChecked = remind.isEnabled
+
+                itemSwitch.setOnCheckedChangeListener { _, isChecked ->
+                    (context as MainActivity).updateRemindState(remind.id, isChecked)
+                }
+
                 deleteImgView.setOnClickListener(context as View.OnClickListener)
             }
         }

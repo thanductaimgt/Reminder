@@ -10,6 +10,9 @@ interface DownloadTaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRemind(remind: Remind)
 
+    @Update
+    fun updateRemind(remind: Remind)
+
     @Query("DELETE FROM Remind where id = :remindId")
     fun deleteRemind(remindId: Int)
 }

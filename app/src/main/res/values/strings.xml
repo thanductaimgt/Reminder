@@ -3,7 +3,22 @@
     <string name="cancel">Hủy</string>
     <string name="create">Tạo</string>
     <string name="description">Mô tả</string>
-    <string name="near_event">Có sự kiện sắp diễn ra</string>
+    <string name="time"> Thời gian</string>
+    <string name="delete">Xóa</string>
+    <string name="incoming_event">Sự kiện sắp tới</string>
     <string name="create_remind_success">Tạo nhắc nhở thành công</string>
     <string name="delete_remind_success">Xóa nhắc nhở thành công</string>
+    <string name="disabled_remind">Đã tắt nhắc nhở</string>
+    <string name="enabled_remind">Đã bật nhắc nhở</string>
+    <string name="less_than_one_min">(Còn ít hơn 1 phút)</string>
+    <string name="just_happened">(Vừa diễn ra)</string>
+    <string name="remaining_time">(Còn %d %s)</string>
+    <string name="passed_time">(%d %s trước)</string>
+    <string name="remaining_date_time">(Còn %d ngày %d giờ)</string>
+    <string name="passed_date_time">(%d ngày %d giờ trước)</string>
+    <string name="label_hour">giờ</string>
+    <string name="label_date">ngày</string>
+    <string name="label_minute">phút</string>
+    <string name="rescheduling_title">Tái tạo các nhắc nhở</string>
+    <string name="rescheduling_description">Các nhắc nhở cần được tái tạo mỗi khi hệ thống khởi động lại</string>
 </resources>
