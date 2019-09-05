@@ -21,16 +21,51 @@
             tools:text="08:30 - 01/01/2019" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
+            app:useMaterialThemeColors="false"
             android:id="@+id/itemSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/deleteImgView"
+            app:layout_constraintBottom_toTopOf="@id/deleteRemindImgView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
+    <TextView
+            android:textSize="@dimen/sizeTextSmall"
+            android:id="@+id/remainTimeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toStartOf="@id/editRemindImgView"
+            app:layout_constraintStart_toStartOf="@id/dateTimeTextView"
+            app:layout_constraintTop_toBottomOf="@id/dateTimeTextView"
+            tools:text="(Con 1 ngay 3 gio)" />
+
+    <TextView
+            android:id="@+id/descTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/remainTimeTextView"
+            app:layout_constraintStart_toStartOf="@id/dateTimeTextView"
+            app:layout_constraintTop_toBottomOf="@id/remainTimeTextView"
+            tools:text="sinh hoat cong dan" />
+
     <ImageView
-            android:id="@+id/deleteImgView"
+            android:id="@+id/editRemindImgView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/delete"
+            android:padding="8dp"
+            android:src="@drawable/edit"
+            app:layout_constraintBottom_toBottomOf="@id/deleteRemindImgView"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintEnd_toStartOf="@id/deleteRemindImgView"
+            app:layout_constraintTop_toTopOf="@id/deleteRemindImgView" />
+
+    <ImageView
+            android:id="@+id/deleteRemindImgView"
             android:layout_width="48dp"
             android:layout_height="0dp"
             android:contentDescription="@string/delete"
@@ -41,28 +76,4 @@
             app:layout_constraintEnd_toEndOf="@id/itemSwitch"
             app:layout_constraintTop_toBottomOf="@id/itemSwitch"
             app:layout_constraintVertical_chainStyle="spread_inside" />
-
-    <TextView
-            android:textSize="@dimen/sizeTextSmall"
-            android:id="@+id/remainTimeTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toStartOf="@id/deleteImgView"
-            app:layout_constraintStart_toStartOf="@id/dateTimeTextView"
-            app:layout_constraintTop_toBottomOf="@id/dateTimeTextView"
-            tools:text="(Con 1 ngay 3 gio)" />
-
-    <TextView
-            android:id="@+id/descTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toStartOf="@id/deleteImgView"
-            app:layout_constraintStart_toStartOf="@id/dateTimeTextView"
-            app:layout_constraintTop_toBottomOf="@id/remainTimeTextView"
-            tools:text="sinh hoat cong dan" />
 </androidx.constraintlayout.widget.ConstraintLayout>

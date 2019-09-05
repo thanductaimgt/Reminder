@@ -11,7 +11,9 @@ import androidx.core.app.NotificationCompat
 
 class NotificationService : IntentService(NotificationService::class.java.simpleName) {
     override fun onHandleIntent(intent: Intent) {
-        val remind = intent.getParcelableExtra<Remind>(Constants.REMIND)
+        val remindId = intent.getIntExtra(Constants.REMIND, -1)
+
+        val remind = ReminderApplication.database.reminderDao().getRemind(remindId)
 
         val notificationIntent = Intent(this, MainActivity::class.java)
         notificationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -26,7 +28,7 @@ class NotificationService : IntentService(NotificationService::class.java.simple
 
         val notificationTextFormat = getNotificationTextFormat(remind)
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.app_icon)
+            .setSmallIcon(R.drawable.app_icon_transparent)
             .setTicker(getString(R.string.app_name))
             .setContentTitle(getString(R.string.incoming_event))
             .setContentText(notificationTextFormat)
@@ -50,10 +52,17 @@ class NotificationService : IntentService(NotificationService::class.java.simple
         notificationManager.notify(remind.id, builder.build())
     }
 
-    private fun getNotificationTextFormat(remind: Remind):String{
+    private fun getNotificationTextFormat(remind: Remind): String {
         val dateFormat = Utils.getDateFormat(remind.time)
         val timeFormat = Utils.getTimeFormat(remind.time)
-        return "${getString(R.string.time)}: $dateFormat - $timeFormat\n${getString(R.string.description)}: ${remind.description}"
+
+        val timeLabel = getString(R.string.time)
+
+        return "$timeLabel: $timeFormat - $dateFormat ${Utils.getDateTimeDiffFormat(
+            this,
+            remind.time
+        )}\n" +
+                "${getString(R.string.description)}: ${remind.description}"
     }
 
     //helper function to create notification channel, use when start service in foreground

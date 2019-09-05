@@ -47,6 +47,7 @@
     </style>
 
     <style name="ButtonTheme.RoundCorners" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/LightButtonText</item>
         <item name="cornerRadius">@dimen/sizeRoundCornerRadiusLayout</item>
         <item name="android:paddingTop">@dimen/sizeButtonPaddingVertical</item>
         <item name="android:paddingBottom">@dimen/sizeButtonPaddingVertical</item>

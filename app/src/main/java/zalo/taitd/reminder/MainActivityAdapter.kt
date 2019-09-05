@@ -34,7 +34,8 @@ class MainActivityAdapter:RecyclerView.Adapter<MainActivityAdapter.RemindViewHol
                     (context as MainActivity).updateRemindState(remind.id, isChecked)
                 }
 
-                deleteImgView.setOnClickListener(context as View.OnClickListener)
+                editRemindImgView.setOnClickListener(context as View.OnClickListener)
+                deleteRemindImgView.setOnClickListener(context as View.OnClickListener)
             }
         }
     }

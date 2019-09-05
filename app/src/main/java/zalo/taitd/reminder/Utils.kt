@@ -14,7 +14,7 @@ object Utils {
     fun createAlarms(context: Context, remind: Remind) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, NotificationService::class.java).apply {
-            putExtra(Constants.REMIND, remind)
+            putExtra(Constants.REMIND, remind.id)
         }
 
         val currentTimeMillis = System.currentTimeMillis()
@@ -53,6 +53,12 @@ object Utils {
             context,
             diffByMillisecond
         ) else getPastDateTimeDiffFormat(context, - diffByMillisecond)
+    }
+
+    fun getEqualLengthStringFillUpWithSpace(s:String):String{
+        val chars = CharArray(s.length)
+        Arrays.fill(chars, ' ')
+        return String(chars)
     }
 
     private fun getFutureDateTimeDiffFormat(context: Context, diffByMillisecond: Long): String {

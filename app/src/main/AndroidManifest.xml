@@ -3,6 +3,8 @@
         package="zalo.taitd.reminder"
         android:installLocation="preferExternal">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
             android:name=".ReminderApplication"
             android:allowBackup="true"
@@ -31,12 +33,9 @@
 
         <receiver
                 android:name=".RescheduleAlarmsReceiver"
-                android:enabled="true"
-                android:exported="false"
-                android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+                android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="ACTION_TEST" />
             </intent-filter>
         </receiver>
     </application>

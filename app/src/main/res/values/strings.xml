@@ -2,11 +2,13 @@
     <string name="app_name">Reminder</string>
     <string name="cancel">Hủy</string>
     <string name="create">Tạo</string>
+    <string name="edit">Chỉnh sửa</string>
     <string name="description">Mô tả</string>
     <string name="time"> Thời gian</string>
     <string name="delete">Xóa</string>
     <string name="incoming_event">Sự kiện sắp tới</string>
     <string name="create_remind_success">Tạo nhắc nhở thành công</string>
+    <string name="edit_remind_success">Chỉnh sửa nhắc nhở thành công</string>
     <string name="delete_remind_success">Xóa nhắc nhở thành công</string>
     <string name="disabled_remind">Đã tắt nhắc nhở</string>
     <string name="enabled_remind">Đã bật nhắc nhở</string>
@@ -19,6 +21,6 @@
     <string name="label_hour">giờ</string>
     <string name="label_date">ngày</string>
     <string name="label_minute">phút</string>
-    <string name="rescheduling_title">Tái tạo các nhắc nhở</string>
-    <string name="rescheduling_description">Các nhắc nhở cần được tái tạo mỗi khi hệ thống khởi động lại</string>
+    <string name="create_remind">Tạo nhắc nhở</string>
+    <string name="edit_remind">Chỉnh sửa nhắc nhở</string>
 </resources>

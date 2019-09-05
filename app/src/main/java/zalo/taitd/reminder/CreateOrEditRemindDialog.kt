@@ -16,7 +16,12 @@ import kotlinx.android.synthetic.main.dialog_create_remind.view.*
 import java.util.*
 
 
-class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), View.OnClickListener {
+class CreateOrEditRemindDialog(private val fm: FragmentManager) : DialogFragment(),
+    View.OnClickListener {
+    private var remind: Remind? = null
+    private lateinit var titleText: String
+    private lateinit var positiveButtonText: String
+    private lateinit var positiveButtonClickListener: (remind: Remind) -> Unit
     private lateinit var calendar: Calendar
 
     override fun onCreateView(
@@ -26,19 +31,34 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
     ): View? {
         val view = inflater.inflate(R.layout.dialog_create_remind, container, false)
 
-        calendar = Calendar.getInstance()
-        calendar.set(
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH),
-            Constants.DEFAULT_HOUR,
-            0,
-            0
-        )
+        calendar = Calendar.getInstance().apply {
+            if (remind != null) {
+                time = remind!!.time
+            } else {
+                set(
+                    get(Calendar.YEAR),
+                    get(Calendar.MONTH),
+                    get(Calendar.DAY_OF_MONTH),
+                    Constants.DEFAULT_HOUR,
+                    0,
+                    0
+                )
+            }
+        }
 
         initView(view)
 
         return view
+    }
+
+    override fun onPause() {
+        remind?.description = view!!.descEditText.text.toString()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        remind?.let { view!!.descEditText.setText(remind!!.description) }
+        super.onResume()
     }
 
     override fun onStart() {
@@ -54,10 +74,14 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
         view.apply {
-            cancelButton.setOnClickListener(this@CreateRemindDialog)
-            createRemindButton.setOnClickListener(this@CreateRemindDialog)
-            timeTextView.setOnClickListener(this@CreateRemindDialog)
-            dateTextView.setOnClickListener(this@CreateRemindDialog)
+            titleTextView.text = titleText
+            positiveButton.text = positiveButtonText
+            descEditText.setText(remind?.description ?: "")
+
+            cancelButton.setOnClickListener(this@CreateOrEditRemindDialog)
+            positiveButton.setOnClickListener(this@CreateOrEditRemindDialog)
+            timeTextView.setOnClickListener(this@CreateOrEditRemindDialog)
+            dateTextView.setOnClickListener(this@CreateOrEditRemindDialog)
 
             timeTextView.text = Utils.getTimeFormat(calendar.time)
 
@@ -65,14 +89,23 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
         }
     }
 
-    fun show() {
+    fun show(
+        titleText: String,
+        positiveButtonText: String,
+        positiveButtonClickListener: (remind: Remind) -> Unit,
+        remind: Remind? = null
+    ) {
+        this.remind = remind
+        this.titleText = titleText
+        this.positiveButtonText = positiveButtonText
+        this.positiveButtonClickListener = positiveButtonClickListener
         show(fm, TAG)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.cancelButton -> clearFocusAndDismiss()
-            R.id.createRemindButton -> createRemindAndDismiss()
+            R.id.positiveButton -> callbackAndDismiss()
             R.id.timeTextView -> showTimePickerDialog()
             R.id.dateTextView -> showDatePickerDialog()
         }
@@ -113,15 +146,14 @@ class CreateRemindDialog(private val fm: FragmentManager) : DialogFragment(), Vi
 
     private fun clearFocusAndDismiss() {
         view!!.descEditText.clearFocus()
+        view!!.descEditText.setText("")
         dismiss()
     }
 
-    private fun createRemindAndDismiss() {
-        val mainActivity = (activity as MainActivity)
-
-        mainActivity.createRemind(
+    private fun callbackAndDismiss() {
+        positiveButtonClickListener.invoke(
             Remind(
-                id = Utils.generateNewId(mainActivity.viewModel.liveReminds.value!!.values.toList()),
+                id = if (remind != null) remind!!.id else Utils.generateNewId((activity as MainActivity).viewModel.liveReminds.value!!.values.toList()),
                 time = calendar.time,
                 description = descEditText.text.toString()
             )

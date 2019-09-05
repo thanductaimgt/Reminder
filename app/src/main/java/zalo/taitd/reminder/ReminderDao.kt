@@ -15,4 +15,7 @@ interface DownloadTaskDao {
 
     @Query("DELETE FROM Remind where id = :remindId")
     fun deleteRemind(remindId: Int)
+
+    @Query("select * from Remind where id = :remindId")
+    fun getRemind(remindId: Int):Remind
 }

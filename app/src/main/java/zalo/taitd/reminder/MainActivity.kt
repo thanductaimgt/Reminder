@@ -1,6 +1,5 @@
 package zalo.taitd.reminder
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: MainActivityAdapter
-    private lateinit var createRemindDialog: CreateRemindDialog
+    private lateinit var createOrEditRemindDialog: CreateOrEditRemindDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
@@ -31,22 +30,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        createRemindDialog = CreateRemindDialog(supportFragmentManager)
+        createOrEditRemindDialog = CreateOrEditRemindDialog(supportFragmentManager)
         adapter = MainActivityAdapter()
         recyclerView.apply {
             adapter = this@MainActivity.adapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
-        addRemindImgView.setOnClickListener(this)
+        createRemindImgView.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.addRemindImgView -> createRemindDialog.show()
-            R.id.deleteImgView -> {
+            R.id.createRemindImgView -> createOrEditRemindDialog.show(
+                titleText = getString(R.string.create_remind),
+                positiveButtonText = getString(R.string.create),
+                positiveButtonClickListener = { createRemind(it) }
+            )
+            R.id.deleteRemindImgView -> {
                 val position = recyclerView.getChildLayoutPosition(view.parent as View)
                 val remind = adapter.reminds[position]
                 deleteRemind(remind.id)
+            }
+            R.id.editRemindImgView -> {
+                val position = recyclerView.getChildLayoutPosition(view.parent as View)
+                val remind = adapter.reminds[position]
+                createOrEditRemindDialog.show(
+                    titleText = getString(R.string.edit_remind),
+                    positiveButtonText = getString(R.string.edit),
+                    positiveButtonClickListener = { editRemind(it) },
+                    remind = remind.copy()
+                )
             }
         }
     }
@@ -57,9 +70,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Toast.makeText(this, getString(R.string.delete_remind_success), Toast.LENGTH_SHORT).show()
     }
 
-    fun createRemind(remind: Remind) {
+    private fun createRemind(remind: Remind) {
         viewModel.createRemind(this, remind)
         Toast.makeText(this, getString(R.string.create_remind_success), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun editRemind(remind: Remind) {
+        viewModel.createRemind(this, remind)
+        Toast.makeText(this, getString(R.string.edit_remind_success), Toast.LENGTH_SHORT).show()
     }
 
     fun updateRemindState(remindId: Int, isEnabled: Boolean) {
